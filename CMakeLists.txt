@@ -5,7 +5,7 @@ if (NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Release")
 endif()
 
-set(REPLXX_BuildExamples OFF)
+SET(REPLXX_BuildExamples OFF CACHE BOOL "Build replxx examples")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/deps/replxx/include)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/deps/replxx)
 
