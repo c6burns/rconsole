@@ -1,3 +1,4 @@
 [submodule "deps/replxx"]
 	path = deps/replxx
+	branch = master
 	url = https://github.com/c6burns/replxx.git
