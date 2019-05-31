@@ -5,3 +5,9 @@
 [submodule "deps/libuv"]
 	path = deps/libuv
 	url = https://github.com/c6burns/libuv.git
+[submodule "deps/aws-c-common"]
+	path = deps/aws-c-common
+	url = https://github.com/awslabs/aws-c-common.git
+[submodule "deps/tn"]
+	path = deps/tn
+	url = https://github.com/c6burns/tn.git

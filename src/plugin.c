@@ -3,103 +3,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
-
-#include <uv.h>
 #include <assert.h>
 
 #include "replxx.h"
 #include "util.h"
 
+#include "tn/term.h"
 
-void tty_alloc_cb(uv_handle_t* handle, size_t size, uv_buf_t* buf)
-{
-	buf->base = malloc(size);
-	buf->len = size;
-}
-
-void tty_read_cb(uv_stream_t* stream, ssize_t nread, const uv_buf_t* buf)
-{
-	if (nread > 0) {
-		if (buf->base[nread - 1] == '\n') {
-
-		}
-		buf->base[nread] = 0;
-		//printf("Read %d bytes: %s\n\n", nread, buf->base);
-		printf("%d -- %d -- %s\n", nread, (int)buf->base[0], buf->base);
-	}
-}
-
-static void repeat_cb(uv_timer_t* handle)
-{
-	//printf("REPEAT_CB\n");
-
-	assert(handle != NULL);
-	assert(1 == uv_is_active((uv_handle_t*)handle));
-
-	//repeat_cb_called++;
-
-	//if (repeat_cb_called == 5) {
-	//	uv_close((uv_handle_t*)handle, repeat_close_cb);
-	//}
-}
-
-
-int uvmain()
-{
-	int ret;
-	int width, height;
-	uv_tty_t tty_in, tty_out;
-	uv_timer_t tty_timer;
-	uv_loop_t *loop = uv_default_loop();
-
-	uv_timer_init(uv_default_loop(), &tty_timer);
-	uv_timer_start(&tty_timer, repeat_cb, 100, 100);
-
-	ret = uv_tty_init(loop, &tty_in, 0, 1);
-	assert(ret == 0);
-	assert(uv_is_readable((uv_stream_t*)&tty_in));
-	assert(!uv_is_writable((uv_stream_t*)&tty_in));
-	assert(0 == uv_tty_set_mode(&tty_in, UV_TTY_MODE_RAW));
-
-	ret = uv_tty_init(loop, &tty_out, 1, 0);
-	assert(ret == 0);
-	assert(!uv_is_readable((uv_stream_t*)&tty_out));
-	assert(uv_is_writable((uv_stream_t*)&tty_out));
-
-	ret = uv_tty_get_winsize(&tty_out, &width, &height);
-	assert(ret == 0);
-
-	printf("width=%d height=%d\n", width, height);
-
-	if (uv_read_start((uv_stream_t *)&tty_in, tty_alloc_cb, tty_read_cb)) {
-		printf("Error starting read on tty!!!!\n");
-	}
-
-	int tty_w, tty_h;
-	if (uv_tty_get_winsize(&tty_out, &tty_w, &tty_h)) {
-		printf("Error getting winsize!!!!\n");
-	} else {
-		printf("winsize: %d x %d\n", tty_w, tty_h);
-	}
-
-	//if (uv_guess_handle(1) == UV_TTY) {
-	//	uv_write_t req;
-	//	uv_buf_t buf;
-	//	buf.base = "\033[41;37m";
-	//	buf.len = strlen(buf.base);
-	//	uv_write(&req, (uv_stream_t*)&tty_out, &buf, 1, NULL);
-	//}
-
-	uv_write_t req;
-	uv_buf_t buf;
-	buf.base = "Hello TTY\n";
-	buf.len = strlen(buf.base);
-	uv_write(&req, (uv_stream_t*)&tty_out, &buf, 1, NULL);
-	uv_tty_reset_mode();
-
-	//printf("AWWWWWW YEAH!!!!");
-	return uv_run(loop, UV_RUN_DEFAULT);
-}
 
 void completionHook(char const* context, replxx_completions* lc, int* contextLen, void* ud) {
 	char** examples = (char**)( ud );
@@ -172,8 +82,11 @@ void split( char* str_, char** data_, int size_ ) {
 	data_[i] = 0;
 }
 
+tn_term_t term;
+
 int main( int argc, char** argv ) {
-	uvmain();
+	tn_term_start(&term);
+
 	return 0;
 
 #define MAX_EXAMPLE_COUNT 128
