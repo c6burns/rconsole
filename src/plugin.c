@@ -82,10 +82,17 @@ void split( char* str_, char** data_, int size_ ) {
 	data_[i] = 0;
 }
 
-tn_term_t term;
+tn_term_t term = TN_TERM_INIT;
 
 int main( int argc, char** argv ) {
-	tn_term_start(&term);
+	char in_char;
+	tn_term_state_t term_state;
+
+	TN_GUARD(tn_term_start(&term, NULL, NULL));
+	while (1) {
+		term_state = tn_term_state(&term);
+		if (term_state == TN_TERM_STATE_STOPPING || term_state == TN_TERM_STATE_STOPPED || term_state == TN_TERM_STATE_ERROR) break;
+	}
 
 	return 0;
 
