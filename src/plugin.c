@@ -88,6 +88,7 @@ int main( int argc, char** argv ) {
 	char in_char;
 	tn_term_state_t term_state;
 
+	tn_term_debug_print(&term, true);
 	TN_GUARD(tn_term_start(&term, NULL, NULL));
 	while (1) {
 		term_state = tn_term_state(&term);
