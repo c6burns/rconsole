@@ -14,7 +14,7 @@ endif()
 add_custom_target(replxx_update
 	COMMAND git checkout master
 	COMMAND git pull
-	WORKING_DIRECTORY ${RC_DEPS_DIR}
+	WORKING_DIRECTORY ${RC_DEPS_DIR}/replxx
 )
 
 set(REPLXX_BuildExamples OFF CACHE BOOL "" FORCE)
@@ -33,7 +33,7 @@ endif()
 add_custom_target(tn_update
 	COMMAND git checkout master
 	COMMAND git pull
-	WORKING_DIRECTORY ${RC_DEPS_DIR}
+	WORKING_DIRECTORY ${RC_DEPS_DIR}/tn
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/deps/tn/include)
