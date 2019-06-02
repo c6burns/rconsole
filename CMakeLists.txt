@@ -4,6 +4,9 @@ project(rconsole LANGUAGES C CXX)
 set(RC_DEPS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/deps)
 set(RC_LINK_LIBS "")
 
+if(NOT EXISTS ${RC_DEPS_DIR})
+	file(MAKE_DIRECTORY ${RC_DEPS_DIR})
+endif()
 
 #
 # build replxx
