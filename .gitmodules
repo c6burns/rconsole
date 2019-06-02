@@ -1,7 +1,0 @@
-[submodule "deps/replxx"]
-	path = deps/replxx
-	branch = master
-	url = https://github.com/c6burns/replxx.git
-[submodule "deps/tn"]
-	path = deps/tn
-	url = https://github.com/c6burns/tn.git
