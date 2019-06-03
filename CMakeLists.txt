@@ -57,3 +57,6 @@ add_executable(rconsole
 )
 target_link_libraries(rconsole ${RC_LINK_LIBS})
 add_dependencies(rconsole tn replxx)
+
+add_executable(playground src/playground.c)
+target_link_libraries(playground ${RC_LINK_LIBS})

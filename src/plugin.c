@@ -9,6 +9,7 @@
 #include "util.h"
 
 #include "tn/term.h"
+#include "uv.h"
 
 
 void completionHook(char const* context, replxx_completions* lc, int* contextLen, void* ud) {
@@ -88,12 +89,15 @@ int main( int argc, char** argv ) {
 	char in_char;
 	tn_term_state_t term_state;
 
+	tn_term_setup(&term);
 	tn_term_debug_print(&term, true);
 	TN_GUARD(tn_term_start(&term, NULL, NULL));
 	while (1) {
 		term_state = tn_term_state(&term);
 		if (term_state == TN_TERM_STATE_STOPPING || term_state == TN_TERM_STATE_STOPPED || term_state == TN_TERM_STATE_ERROR) break;
 	}
+
+	tn_term_cleanup(&term);
 
 	return 0;
 
