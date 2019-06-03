@@ -50,10 +50,10 @@ list(APPEND RC_LINK_LIBS tn)
 # build rconsole
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_executable(rconsole
-	${CMAKE_CURRENT_SOURCE_DIR}/src/plugin.c
-	${CMAKE_CURRENT_SOURCE_DIR}/include/plugin.h
-	${CMAKE_CURRENT_SOURCE_DIR}/src/util.c
-	${CMAKE_CURRENT_SOURCE_DIR}/include/util.h
+	src/plugin.c
+	include/plugin.h
+	src/util.c
+	include/util.h
 )
 target_link_libraries(rconsole ${RC_LINK_LIBS})
 add_dependencies(rconsole tn replxx)
