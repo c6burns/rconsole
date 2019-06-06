@@ -94,7 +94,7 @@ void test_io()
 
     uv_buf_t buf;
     buf.base = "Party people in the house :D\n\n";
-    buf.len = strlen(buf.base);
+    buf.len = TN_BUFLEN_CAST(strlen(buf.base));
     uv_try_write((uv_stream_t*)&priv->uv_tty_out, &buf, 1);
 
 	TN_GUARD_CLEANUP(uv_run(&priv->uv_loop, UV_RUN_ONCE));

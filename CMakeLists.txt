@@ -52,6 +52,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_executable(rconsole
 	src/plugin.c
 	include/plugin.h
+	src/buf.c
+	include/rc/buf.h
 	src/util.c
 	include/util.h
 )
